@@ -1,0 +1,44 @@
+[
+  {
+    "to": "/home/classes",
+    "name": "sidebar.classes",
+    "icon": "ri-book-open-line",
+    "visible": true
+  },
+  {
+    "to": "/home/teachers",
+    "name": "sidebar.teachers",
+    "icon": "ri-user-star-line",
+    "visible": true
+  },
+  {
+    "to": "/home/subjects",
+    "name": "sidebar.subjects",
+    "icon": "ri-graduation-cap-line",
+    "visible": true
+  },
+  {
+    "to": "/home/rooms",
+    "name": "sidebar.rooms",
+    "icon": "ri-door-open-line",
+    "visible": true
+  },
+  {
+    "to": "/home/lessons",
+    "name": "sidebar.lessons",
+    "icon": "ri-book-marked-line",
+    "visible": true
+  },
+  {
+    "to": "/home/templates",
+    "name": "sidebar.templates",
+    "icon": "ri-file-list-3-line",
+    "visible": false
+  },
+  {
+    "to": "/home/timetables",
+    "name": "sidebar.timetables",
+    "icon": "ri-calendar-2-line",
+    "visible": true
+  }
+]

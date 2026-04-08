@@ -1,4 +1,5 @@
 import { createI18n } from 'vue-i18n'
+import { _language } from '@/stores/base'
 
 import uz from './uz/index'
 import ru from './ru/index'
@@ -9,7 +10,7 @@ const i18n = createI18n({
   legacy: false,
   fallbackLocale: 'uz',
   globalInjection: true,
-  locale: 'uz',
+  locale: _language.value,
 
   messages: {
     uz,
