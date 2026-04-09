@@ -86,14 +86,14 @@ loadItems();
     <div class="flex flex-col gap-6">
         <div class="flex items-center justify-between gap-4">
             <div class="w-full max-w-sm relative custom-search">
-                <el-input v-model="_params.search" placeholder="Qidirish..." @input="onSearch" clearable style="width: 200px;">
+                <el-input v-model="_params.search" :placeholder="$t('common.search_placeholder')" @input="onSearch" clearable style="width: 200px;">
                     <template #prefix><i class="ri-search-line text-gray-400"></i></template>
                 </el-input>
             </div>
 
             <el-button @click="openModal(null)" type="primary" plain>
                 <i class="ri-add-line text-lg"></i> 
-                <p class="hidden md:block ml-1">Fan qo'shish</p>
+                <p class="hidden md:block ml-1">{{ $t('subjects.add_btn') }}</p>
             </el-button>
         </div>
 
@@ -107,11 +107,11 @@ loadItems();
                                 <div class="bg-white border rounded-xl p-4 pb-2 shadow-sm">
                                     <div class="flex items-center justify-between mb-4">
                                         <h4 class="text-sm font-bold text-green-700 flex items-center gap-2">
-                                            <i class="ri-calendar-check-line"></i> Fan uchun ajratilgan vaqtlar
+                                            <i class="ri-calendar-check-line"></i> {{ $t('subjects.allocated_times') }}
                                         </h4>
                                         <div class="flex items-center gap-2 cursor-pointer">
                                             <i class="ri-share-line !text-base text-blue-500"></i>
-                                            <p class="text-blue-500 text-[14px]">Boshqalarga qo'llash</p>
+                                            <p class="text-blue-500 text-[14px]">{{ $t('classes.apply_to_others') }}</p>
                                         </div>
                                     </div>
 
@@ -137,7 +137,7 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Fan nomi" min-width="200">
+                <el-table-column :label="$t('fields.name')" min-width="200">
                     <template #default="{ row }">
                         <div class="flex items-center gap-3 px-1">
                             <div class="w-9 h-9 rounded-lg flex items-center justify-center font-bold text-lg border transition-all uppercase" :style="{  backgroundColor: (row.color || '#3b82f6') + '15',  color: row.color || '#3b82f6', borderColor: (row.color || '#3b82f6') + '30' }">
@@ -148,13 +148,13 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Qisqa nom" prop="shortName" min-width="120">
+                <el-table-column :label="$t('fields.short_name')" prop="shortName" min-width="120">
                     <template #default="{ row }">
                         <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-md text-xs font-bold border whitespace-nowrap border-gray-200">{{ row.shortName }}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Qiyinlik" min-width="150">
+                <el-table-column :label="$t('subjects.col_difficulty')" min-width="150">
                     <template #default="{ row }">
                         <div class="flex items-center gap-3">
                             <div class="flex gap-0.5">
@@ -165,17 +165,17 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Mavjudlik" min-width="150">
+                <el-table-column :label="$t('rooms.col_availability')" min-width="150">
                     <template #default="{ row }">
                         <div @click="toggleRow(row)" class="flex items-center gap-2 text-green-600 font-medium cursor-pointer hover:text-green-700 transition-colors select-none group">
                             <i class="ri-calendar-check-line text-lg"></i>
-                            <span>{{ calculateTotalPeriods(row.availabilities) }} periods</span>
+                            <span>{{ calculateTotalPeriods(row.availabilities) }} {{ $t('lessons.stats_lessons') }}</span>
                             <i class="ri-arrow-down-s-line text-gray-400 group-hover:text-green-600 transition-transform duration-300" :class="{'rotate-180': expandedRowKeys.includes(row.id)}"></i>
                         </div>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Harakatlar" width="120">
+                <el-table-column :label="$t('common.actions')" width="120">
                     <template #default="{ row }">
                         <div class="flex justify-end gap-3 px-2">
                             <i @click.stop="openModal(row)" class="ri-pencil-fill cursor-pointer text-blue-500 text-lg transition-colors"></i>
@@ -188,7 +188,7 @@ loadItems();
                 <template #empty>
                     <div class="py-16 flex flex-col items-center gap-2">
                         <i class="ri-book-open-line text-4xl text-gray-200"></i>
-                        <p class="text-gray-400 font-medium italic">Fanlar topilmadi</p>
+                        <p class="text-gray-400 font-medium italic">{{ $t('subjects.not_found') }}</p>
                     </div>
                 </template>
             </el-table>

@@ -3,20 +3,20 @@ const audience = [
   {
     icon: 'ri-building-4-line',
     iconColor: 'text-blue-600',
-    title: 'Maktablar',
-    desc: 'Ma\'muriy vositalar bilan jadval va sinflarni boshqaring.'
+    title: 'landing.audience.card1_title',
+    desc: 'landing.audience.card1_desc'
   },
   {
     icon: 'ri-team-line',
     iconColor: 'text-emerald-500',
-    title: 'O\'qituvchilar',
-    desc: 'Ajoyib interfeyslar bilan dars va fanlarni samarali boshqaring.'
+    title: 'landing.audience.card2_title',
+    desc: 'landing.audience.card2_desc'
   },
   {
     icon: 'ri-user-smile-line',
     iconColor: 'text-purple-600',
-    title: 'O\'quvchilar',
-    desc: 'Yangi jadvalni istalgan vaqtda mobil qurilmadan ko\'ring.'
+    title: 'landing.audience.card3_title',
+    desc: 'landing.audience.card3_desc'
   }
 ];
 </script>
@@ -31,7 +31,7 @@ const audience = [
           data-aos-once="false" 
           class="text-3xl font-bold text-gray-900 mb-4"
         >
-          Built for Everyone in Education
+          {{ $t('landing.audience.title') }}
         </h2>
         
         <p 
@@ -40,7 +40,7 @@ const audience = [
           data-aos-once="false" 
           class="text-gray-500 text-lg"
         >
-          Whether you're an administrator, teacher, or student, Timetable.uz has you covered.
+          {{ $t('landing.audience.subtitle') }}
         </p>
       </div>
 
@@ -57,8 +57,8 @@ const audience = [
           <div class="w-16 h-16 mx-auto rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center mb-6">
             <i :class="[item.icon, item.iconColor]" class="text-3xl"></i>
           </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">{{ item.title }}</h3>
-          <p class="text-gray-500 text-[15px] leading-relaxed">{{ item.desc }}</p>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">{{ $t(item.title) }}</h3>
+          <p class="text-gray-500 text-[15px] leading-relaxed">{{ $t(item.desc) }}</p>
         </div>
 
       </div>

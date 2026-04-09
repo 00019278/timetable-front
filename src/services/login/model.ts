@@ -8,6 +8,15 @@ export interface LoginModel {
     newPassword: string;
 }
 
+
+export interface VerifyModel {
+    name: string;
+    surname: string;
+    email: string;
+    code: number;
+    password: string;
+}
+
 export interface LoginResponseModel {
     token: string;
 }

@@ -17,4 +17,5 @@ onMounted(() => {
 
 <template>
   <router-view />
+  <delete-modal />
 </template>

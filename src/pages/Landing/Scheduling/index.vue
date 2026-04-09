@@ -49,7 +49,7 @@ const timetableData = [
                 data-aos-once="false" 
                 class="text-3xl font-bold text-gray-900 mb-4"
             >
-                Clear Weekly Overview
+                {{ $t('landing.scheduling.title') }}
             </h2>
             
             <p 
@@ -58,7 +58,7 @@ const timetableData = [
                 data-aos-once="false" 
                 class="text-gray-500 text-lg"
             >
-                Drag & drop to adjust your timetable instantly with our intuitive interface.
+                {{ $t('landing.scheduling.subtitle') }}
             </p>
           </div>
 
@@ -72,8 +72,8 @@ const timetableData = [
             <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-200">
               
               <div class="bg-blue-600 text-white p-6">
-                <h3 class="text-xl font-bold">Grade 10-A Weekly Schedule</h3>
-                <p class="text-blue-100 text-sm mt-1">32 students • Mrs. Johnson (Homeroom)</p>
+                <h3 class="text-xl font-bold">{{ $t('landing.scheduling.schedule_title') }}</h3>
+                <p class="text-blue-100 text-sm mt-1">{{ $t('landing.scheduling.schedule_subtitle') }}</p>
               </div>
               
               <div class="p-6 overflow-x-auto">
@@ -88,7 +88,7 @@ const timetableData = [
                   <div v-for="(periodRow, periodIdx) in timetableData" :key="periodIdx" class="grid grid-cols-5 gap-4 mb-4">
                     
                     <div v-for="(lesson, dayIdx) in periodRow" :key="dayIdx" class="bg-blue-50 border border-blue-100 rounded-xl p-3 hover:bg-blue-100 transition-colors cursor-pointer">
-                      <p class="text-[11px] font-semibold text-blue-600 mb-1">Period {{ periodIdx + 1 }}</p>
+                      <p class="text-[11px] font-semibold text-blue-600 mb-1">{{ $t('landing.scheduling.period') }} {{ periodIdx + 1 }}</p>
                       
                       <p class="text-sm font-bold text-gray-900">{{ lesson.subject }}</p>
                       

@@ -39,17 +39,16 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-dialog v-model="_visible" :title="_formData.id ? 'Xonani tahrirlash' : 'Yangi jadval yaratish'" width="550px" class="room-dialog" @close="close">
+  <el-dialog v-model="_visible" :title="_formData.id ? $t('timetables.modal_edit') : $t('timetables.modal_add')" width="550px" class="room-dialog" @close="close">
     <el-form ref="_formRef" :model="_formData" :rules="rules" label-position="top">
       
-      <el-form-item label="Nomi" prop="name">
-        <el-input v-model="_formData.name" placeholder="Semester 1 - 2026" />
+      <el-form-item :label="$t('fields.name')" prop="name">
+        <el-input v-model="_formData.name" :placeholder="$t('timetables.placeholder_name')" />
       </el-form-item>
 
-      
       <div class="flex justify-end gap-2 pt-4 mt-2 border-t border-gray-50">
-        <el-button size="default" class="!rounded-lg !h-9 !px-6" @click="close">Bekor qilish</el-button>
-        <el-button type="primary" class="!rounded-lg !h-9 !px-6" :loading="_loading" @click="submit">{{ _formData.id ? 'Saqlash' : 'Yaratish' }}</el-button>
+        <el-button size="default" class="!rounded-lg !h-9 !px-6" @click="close">{{ $t('common.cancel') }}</el-button>
+        <el-button type="primary" class="!rounded-lg !h-9 !px-6" :loading="_loading" @click="submit">{{ _formData.id ? $t('common.save') : $t('common.add') }}</el-button>
       </div>
     </el-form>
   </el-dialog>

@@ -15,7 +15,7 @@ interface SettingsModel {
 
 const getSettings_DEFAULT = (): SettingsModel => ({
     schoolName: 'Springfield High School',
-    academicYear: '2024-2025',
+    academicYear: '2024-2026',
     schoolStartTime: '09:00',
     schoolEndTime: '16:00',
     defaultPeriodDuration: 45,
@@ -88,25 +88,25 @@ onMounted(() => {
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div class="flex flex-col gap-1">
                 <h2 class="flex items-center gap-3 text-2xl font-extrabold text-gray-800">
-                    Sozlamalar
+                    {{ $t('settings.title') }}
                 </h2>
-                <p class="text-gray-500 text-sm font-medium">Ilova sozlamalarini boshqaring</p>
+                <p class="text-gray-500 text-sm font-medium">{{ $t('settings.subtitle') }}</p>
             </div>
 
             <div class="flex items-center gap-2">
                 <el-button v-if="_isEditing" @click="handleCancel" plain type="primary" size="large" class="!rounded-xl">
                     <i class="ri-close-line mr-1"></i>
-                    <p>Bekor qilish</p>
+                    <p>{{ $t('common.cancel') }}</p>
                 </el-button>
                 
                 <el-button v-if="_isEditing" @click="handleUpdate" plain type="success" size="large" :disabled="!_isChanged" class="!rounded-xl">
                     <i class="ri-save-3-line mr-1"></i>
-                    <p>O‘zgarishlarni saqlash</p>
+                    <p>{{ $t('common.save') }}</p>
                 </el-button>
 
                 <el-button v-if="!_isEditing" @click="handleStartEdit" plain type="primary" size="large" class="!rounded-xl">
                     <i class="ri-edit-line mr-1"></i>
-                    <p>Ma'lumotlarni tahrirlash</p>
+                    <p>{{ $t('organization.edit_info') }}</p>
                 </el-button>
             </div>
         </div>
@@ -115,16 +115,16 @@ onMounted(() => {
             
             <div class="flex flex-col gap-5 p-5 border border-gray-200 rounded-[20px] bg-white shadow-sm mb-6">
                 <div class="flex flex-col gap-1 mb-1">
-                    <h3 class="text-lg font-bold text-gray-900">School Information</h3>
-                    <p class="text-gray-500 text-sm font-medium">Configure your school's basic information</p>
+                    <h3 class="text-lg font-bold text-gray-900">{{ $t('settings.school_info') }}</h3>
+                    <p class="text-gray-500 text-sm font-medium">{{ $t('settings.school_info_desc') }}</p>
                 </div>
 
                 <el-form :model="_item" label-position="top" class="custom-form grid grid-cols-1 md:grid-cols-3 gap-x-6 gap-y-2">
-                    <el-form-item label="School Name" class="md:col-span-2">
+                    <el-form-item :label="$t('settings.school_name')" class="md:col-span-2">
                         <el-input v-model="_item.schoolName" :readonly="!_isEditing" class="custom-input"></el-input>
                     </el-form-item>
 
-                    <el-form-item label="Academic Year">
+                    <el-form-item :label="$t('settings.academic_year')">
                         <el-input v-model="_item.academicYear" :readonly="!_isEditing" class="custom-input"></el-input>
                     </el-form-item>
                 </el-form>
@@ -132,24 +132,24 @@ onMounted(() => {
 
             <div class="flex flex-col gap-5 p-5 border border-gray-200 rounded-[20px] bg-white shadow-sm mb-6">
                 <div class="flex flex-col gap-1 mb-1">
-                    <h3 class="text-lg font-bold text-gray-900">Timetable Settings</h3>
-                    <p class="text-gray-500 text-sm font-medium">Configure default timetable settings</p>
+                    <h3 class="text-lg font-bold text-gray-900">{{ $t('settings.timetable_settings') }}</h3>
+                    <p class="text-gray-500 text-sm font-medium">{{ $t('settings.timetable_settings_desc') }}</p>
                 </div>
 
                 <el-form :model="_item" label-position="top" class="custom_time_picker custom-form grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-2">
-                    <el-form-item label="School Start Time">
+                    <el-form-item :label="$t('settings.start_time')">
                         <el-time-picker v-model="_item.schoolStartTime" format="HH:mm" value-format="HH:mm" :readonly="!_isEditing" :clearable="false" class="custom-time-picker w-full" />
                     </el-form-item>
 
-                    <el-form-item label="School End Time">
+                    <el-form-item :label="$t('settings.end_time')">
                         <el-time-picker v-model="_item.schoolEndTime" format="HH:mm" value-format="HH:mm" :readonly="!_isEditing" :clearable="false" class="custom-time-picker w-full" />
                     </el-form-item>
 
-                    <el-form-item label="Default Period Duration (minutes)">
+                    <el-form-item :label="$t('settings.period_duration')">
                         <el-input-number v-model="_item.defaultPeriodDuration" :min="1" :max="120" :disabled="!_isEditing" controls-position="right" class="custom-number-input !w-full" />
                     </el-form-item>
 
-                    <el-form-item label="Break Duration (minutes)">
+                    <el-form-item :label="$t('settings.break_duration')">
                         <el-input-number v-model="_item.breakDuration" :min="1" :max="60" :disabled="!_isEditing" controls-position="right" class="custom-number-input !w-full" />
                     </el-form-item>
                 </el-form>
@@ -157,8 +157,8 @@ onMounted(() => {
 
             <div class="flex flex-col gap-5 p-5 border border-gray-200 rounded-[20px] bg-white shadow-sm mb-6">
                 <div class="flex flex-col gap-1 mb-2">
-                    <h3 class="text-lg font-bold text-gray-900">Working Days</h3>
-                    <p class="text-gray-500 text-sm font-medium">Configure which days are working days</p>
+                    <h3 class="text-lg font-bold text-gray-900">{{ $t('settings.working_days') }}</h3>
+                    <p class="text-gray-500 text-sm font-medium">{{ $t('settings.working_days_desc') }}</p>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -184,7 +184,7 @@ onMounted(() => {
             <div v-if="_isEditing && _isChanged" class="fixed bottom-10 right-10 z-50">
                 <div class="bg-amber-50 border border-amber-300 rounded-2xl p-4 flex items-center gap-3 shadow-lg">
                     <i class="ri-error-warning-fill text-amber-500 text-xl animate-pulse"></i>
-                    <span class="text-amber-800 font-medium">Sizda saqlanmagan o'zgarishlar mavjud</span>
+                    <span class="text-amber-800 font-medium">{{ $t('organization.unsaved_changes') }}</span>
                 </div>
             </div>
         </el-collapse-transition>

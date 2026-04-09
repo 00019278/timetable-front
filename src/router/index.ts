@@ -27,7 +27,7 @@ const router = createRouter({
           path: "organization",
           name: "Organization",
           meta: {
-            title: "Maktab",
+            title: "sidebar.school",
           },
           component: () => import("@/pages/Organization/index.vue"),
         },
@@ -36,7 +36,7 @@ const router = createRouter({
           path: "classes",
           name: "Classes",
           meta: {
-            title: "Sinflar",
+            title: "sidebar.classes",
           },
           component: () => import("@/pages/Classes/index.vue"),
         },
@@ -45,7 +45,7 @@ const router = createRouter({
           path: "teachers",
           name: "Teachers",
           meta: {
-            title: "O'qituvchilar",
+            title: "sidebar.teachers",
           },
           component: () => import("@/pages/Teachers/index.vue"),
         },
@@ -54,7 +54,7 @@ const router = createRouter({
           path: "subjects",
           name: "Subjects",
           meta: {
-            title: "Fanlar",
+            title: "sidebar.subjects",
           },
           component: () => import("@/pages/Subjects/index.vue"),
         },
@@ -63,7 +63,7 @@ const router = createRouter({
           path: "lessons",
           name: "Lessons",
           meta: {
-            title: "Darslar",
+            title: "sidebar.lessons",
           },
           component: () => import("@/pages/Lessons/index.vue"),
         },
@@ -72,7 +72,7 @@ const router = createRouter({
           path: "rooms",
           name: "Rooms",
           meta: {
-            title: "Xonalar",
+            title: "sidebar.rooms",
           },
           component: () => import("@/pages/Rooms/index.vue"),
         },
@@ -81,7 +81,7 @@ const router = createRouter({
           path: "templates",
           name: "Templates",
           meta: {
-            title: "Andozalar",
+            title: "sidebar.templates",
           },
           component: () => import("@/pages/Templates/index.vue"),
         },
@@ -90,7 +90,7 @@ const router = createRouter({
           path: "timetables",
           name: "Timetables",
           meta: {
-            title: "Dars jadvallari",
+            title: "sidebar.timetables",
           },
           component: () => import("@/pages/Timetables/index.vue"),
         },
@@ -99,7 +99,7 @@ const router = createRouter({
           path: "profile",
           name: "Profile",
           meta: {
-            title: "Profil",
+            title: "header.profile",
           },
           component: () => import("@/pages/Profile/index.vue"),
         },
@@ -108,7 +108,7 @@ const router = createRouter({
           path: "settings",
           name: "Settings",
           meta: {
-            title: "Sozlamalar",
+            title: "sidebar.settings",
           },
           component: () => import("@/pages/Settings/index.vue"),
         },

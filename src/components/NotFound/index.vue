@@ -3,6 +3,6 @@
         <div class="border-main-stroke-color flex items-center justify-center rounded-full border bg-white p-4">
             <i class="icon-dropbox-1 text-specific-icon-color" />
         </div>
-        <p>{{ $t("notFound") }}</p>
+        <p>{{ $t("common.not_found") }}</p>
     </div>
 </template>

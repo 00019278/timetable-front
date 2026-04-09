@@ -73,7 +73,7 @@ loadItems();
     <div class="flex flex-col gap-6">
         <div class="flex items-center justify-between gap-4">
             <div class="w-full max-w-sm relative custom-search">
-                <el-input v-model="_params.search" placeholder="Qidirish" @input="onSearch" clearable style="width: 200px;">
+                <el-input v-model="_params.search" :placeholder="$t('common.search_placeholder')" @input="onSearch" clearable style="width: 200px;">
                     <template #prefix>
                         <i class="ri-search-line text-gray-400"></i>
                     </template>
@@ -82,7 +82,7 @@ loadItems();
 
             <el-button @click="openModal(null)" type="primary" plain>
                 <i class="ri-add-line text-lg"></i> 
-                <p class="hidden md:block ml-1">Jadval yaratish</p>
+                <p class="hidden md:block ml-1">{{ $t('timetables.add_btn') }}</p>
             </el-button>
         </div>
 
@@ -90,7 +90,7 @@ loadItems();
 
             <el-table table-layout="auto" :data="_items.content" style="width: 100%" :header-cell-style="{ background: '#f9fafb', color: '#111827', fontWeight: '600', height: '56px' }">
                 
-                <el-table-column label="Jadval nomi" min-width="220">
+                <el-table-column :label="$t('timetables.label_name')" min-width="220">
                     <template #default="{ row }">
                         <div class="flex items-center gap-3 px-1">
                             <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold text-lg border border-indigo-100">
@@ -104,12 +104,12 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Holati" min-width="200">
+                <el-table-column :label="$t('timetables.col_status')" min-width="200">
                     <template #default="{ row }">
                         <div class="flex flex-col w-full pr-4">
                             <div class="flex justify-between text-xs mb-1">
-                                <span class="text-gray-600 font-medium">Joylandi: {{ row.scheduled || 0 }}</span>
-                                <span class="text-gray-400">Qoldi: {{ row.unscheduled || 0 }}</span>
+                                <span class="text-gray-600 font-medium">{{ $t('timetables.scheduled') }}: {{ row.scheduled || 0 }}</span>
+                                <span class="text-gray-400">{{ $t('timetables.remaining') }}: {{ row.unscheduled || 0 }}</span>
                             </div>
                             <el-progress 
                                 :percentage="calculatePercentage(row.scheduled, row.unscheduled)" 
@@ -121,35 +121,35 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Sifat" min-width="120">
+                <el-table-column :label="$t('timetables.col_quality')" min-width="120">
                     <template #default="{ row }">
                         <div class="flex items-center gap-1.5">
                             <i class="ri-bar-chart-box-line text-green-500"></i>
                             <span class="font-bold text-gray-700">{{ row.score || 0 }}</span>
-                            <span class="text-xs text-gray-400">ball</span>
+                            <span class="text-xs text-gray-400">{{ $t('timetables.score_unit') }}</span>
                         </div>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Muammolar" min-width="180">
+                <el-table-column :label="$t('timetables.col_problems')" min-width="180">
                     <template #default="{ row }">
                         <div class="flex flex-col gap-1">
                             <div v-if="row.teacherGaps > 0" class="inline-flex items-center gap-1.5 text-xs text-red-600 bg-red-50 px-2 py-0.5 rounded border border-red-100 w-fit">
                                 <i class="ri-user-unfollow-line"></i>
-                                <span>{{ row.teacherGaps }} ta o'qituvchi bo'sh</span>
+                                <span>{{ row.teacherGaps }} {{ $t('timetables.teacher_gaps') }}</span>
                             </div>
                             <div v-if="row.classGaps > 0" class="inline-flex items-center gap-1.5 text-xs text-orange-600 bg-orange-50 px-2 py-0.5 rounded border border-orange-100 w-fit">
                                 <i class="ri-community-line"></i>
-                                <span>{{ row.classGaps }} ta sinf bo'sh</span>
+                                <span>{{ row.classGaps }} {{ $t('timetables.class_gaps') }}</span>
                             </div>
                             <div v-if="!row.teacherGaps && !row.classGaps" class="text-xs text-green-600 flex items-center gap-1">
-                                <i class="ri-check-double-line"></i> Hammasi joyida
+                                <i class="ri-check-double-line"></i> {{ $t('timetables.everything_ok') }}
                             </div>
                         </div>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Yaratilgan vaqti" min-width="150">
+                <el-table-column :label="$t('fields.created_at')" min-width="150">
                     <template #default="{ row }">
                         <div class="flex flex-col">
                             <span class="text-sm text-gray-600">{{ formatDate(row.createdDate) }}</span>
@@ -157,7 +157,7 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Harakatlar" width="120">
+                <el-table-column :label="$t('common.actions')" width="120">
                     <template #default="{ row }">
                         <div class="flex justify-end gap-2 px-2">
                             <el-button @click="openModal(row)" size="small" link class="!p-2 hover:bg-indigo-50 rounded-lg group">
@@ -173,7 +173,7 @@ loadItems();
                 <template #empty>
                     <div class="py-16 flex flex-col items-center gap-2">
                         <i class="ri-calendar-event-line text-4xl text-gray-200"></i>
-                        <p class="text-gray-400 font-medium italic">Jadvallar topilmadi</p>
+                        <p class="text-gray-400 font-medium italic">{{ $t('timetables.not_found') }}</p>
                     </div>
                 </template>
             </el-table>

@@ -358,12 +358,3 @@ defineExpose({ open });
     </el-form>
   </el-dialog>
 </template>
-
-<style scoped>
-.lesson-dialog :deep(.el-dialog) { border-radius: 20px; padding: 20px; }
-.lesson-dialog :deep(.el-dialog__title) { font-weight: 700; color: #1f2937; font-size: 18px; }
-.lesson-dialog :deep(.el-dialog__body) { padding-top: 10px; }
-.compact-input :deep(.el-input__wrapper) { background-color: #f9fafb; border-radius: 8px; box-shadow: none; border: 1px solid #f3f4f6; height: 38px; }
-.compact-input :deep(.el-input__wrapper.is-focus) { border-color: #3b82f6; background-color: #fff; }
-:deep(.el-form-item__label) { font-weight: 600; color: #374151; padding-bottom: 4px; font-size: 12px; }
-</style>

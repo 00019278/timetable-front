@@ -26,7 +26,7 @@ const props = defineProps({
       <i class="icon-arrow-left-2 text-2xl" />
     </div>
 
-    <p class="font-medium text-xl" v-if="title">{{ props.title }}</p>
+    <p class="font-medium text-xl" v-if="title">{{ $t(props.title) }}</p>
     <p class="font-medium text-xl" v-else-if="route?.meta?.title">{{ $t(route?.meta?.title as string) }}</p>
   </div>
 </template>

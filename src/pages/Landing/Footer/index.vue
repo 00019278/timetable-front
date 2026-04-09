@@ -1,8 +1,3 @@
-<script lang="ts" setup>
-
-</script>
-
-
 <template>
   <footer id="contact" class="bg-[#0B1120] text-gray-300 pt-20 pb-10 border-t border-gray-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -16,43 +11,43 @@
             <span class="text-xl font-extrabold text-white tracking-tight">Timetable.uz</span>
           </div>
           <p class="text-sm text-gray-400 leading-relaxed pr-4">
-            The intelligent school scheduling platform that saves time and eliminates conflicts.
+            {{ $t('landing.footer.description') }}
           </p>
         </div>
 
         <div>
-          <h4 class="text-white font-semibold mb-6">Product</h4>
+          <h4 class="text-white font-semibold mb-6">{{ $t('landing.footer.product') }}</h4>
           <ul class="space-y-3 text-sm">
-            <li><a href="#" class="hover:text-white transition-colors">Features</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Pricing</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Demo</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Support</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">{{ $t('landing.footer.features') }}</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">{{ $t('landing.footer.pricing') }}</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">{{ $t('landing.footer.demo') }}</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">{{ $t('landing.footer.support') }}</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 class="text-white font-semibold mb-6">Company</h4>
+          <h4 class="text-white font-semibold mb-6">{{ $t('landing.footer.company') }}</h4>
           <ul class="space-y-3 text-sm">
-            <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">{{ $t('landing.footer.about_us') }}</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">{{ $t('landing.footer.contact') }}</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">{{ $t('landing.footer.privacy_policy') }}</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">{{ $t('landing.footer.terms_of_service') }}</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 class="text-white font-semibold mb-6">Connect</h4>
+          <h4 class="text-white font-semibold mb-6">{{ $t('landing.footer.connect') }}</h4>
           <ul class="space-y-3 text-sm">
-            <li><a href="#" class="hover:text-white transition-colors">Twitter</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">LinkedIn</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Facebook</a></li>
-            <li><a href="#" class="hover:text-white transition-colors">Email</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">{{ $t('landing.footer.twitter') }}</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">{{ $t('landing.footer.linkedin') }}</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">{{ $t('landing.footer.facebook') }}</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">{{ $t('landing.footer.email') }}</a></li>
           </ul>
         </div>
       </div>
 
       <div class="pt-8 border-t border-gray-800/60 text-center text-sm text-gray-500">
-        <p>© 2025 Timetable.uz. All rights reserved.</p>
+        <p>{{ $t('landing.footer.rights') }}</p>
       </div>
     </div>
   </footer>

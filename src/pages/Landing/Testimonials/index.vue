@@ -1,19 +1,19 @@
 <script lang="ts" setup>
 const testimonials = [
   {
-    text: '"Our school saves hours every week thanks to Timetable.uz! The automatic scheduling is a game-changer."',
-    author: 'Akmal Nazarov',
-    role: 'Principal, 45-School, Tashkent'
+    text: 'landing.testimonials.review1_text',
+    author: 'landing.testimonials.review1_author',
+    role: 'landing.testimonials.review1_role'
   },
   {
-    text: '"Finally, a timetable system that actually works. No more conflicts, no more confusion."',
-    author: 'Sarah Williams',
-    role: 'Teacher, International School'
+    text: 'landing.testimonials.review2_text',
+    author: 'landing.testimonials.review2_author',
+    role: 'landing.testimonials.review2_role'
   },
   {
-    text: '"The best investment we\'ve made for our school administration. Highly recommended!"',
-    author: 'Elena Petrov',
-    role: 'Director, Lyceum #3'
+    text: 'landing.testimonials.review3_text',
+    author: 'landing.testimonials.review3_author',
+    role: 'landing.testimonials.review3_role'
   }
 ];
 </script>
@@ -28,7 +28,7 @@ const testimonials = [
           data-aos-once="false" 
           class="text-3xl font-bold text-gray-900 mb-4"
         >
-          Loved by Educators Worldwide
+          {{ $t('landing.testimonials.title') }}
         </h2>
         
         <p 
@@ -37,7 +37,7 @@ const testimonials = [
           data-aos-once="false" 
           class="text-gray-500 text-lg"
         >
-          See what schools are saying about their experience with Timetable.uz.
+          {{ $t('landing.testimonials.subtitle') }}
         </p>
       </div>
 
@@ -55,11 +55,11 @@ const testimonials = [
             <div class="flex items-center gap-1 text-yellow-400 mb-4 text-lg">
               <i class="ri-star-fill" v-for="i in 5" :key="i"></i>
             </div>
-            <p class="text-gray-600 italic leading-relaxed mb-8">{{ review.text }}</p>
+            <p class="text-gray-600 italic leading-relaxed mb-8">{{ $t(review.text) }}</p>
           </div>
           <div>
-            <p class="font-bold text-gray-900">{{ review.author }}</p>
-            <p class="text-sm text-gray-500">{{ review.role }}</p>
+            <p class="font-bold text-gray-900">{{ $t(review.author) }}</p>
+            <p class="text-sm text-gray-500">{{ $t(review.role) }}</p>
           </div>
         </div>
 

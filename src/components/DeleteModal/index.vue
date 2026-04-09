@@ -18,8 +18,8 @@ async function submit() {
   } else {
     ElNotification({
       type: 'success',
-      title: t('successful'),
-      message: t('elementDeleted'),
+      title: t('common.success'),
+      message: t('common.deleted_success'),
     })
 
     CLOSE_DELETE_MODAL()
@@ -34,20 +34,24 @@ document.addEventListener('keydown', (evt: any) => {
 </script>
 
 <template>
-  <el-dialog v-model="_deleteModal.visible" width="400">
+  <el-dialog v-model="_deleteModal.visible" width="400" :show-close="false" :with-header="false" class="header_none" @close="CLOSE_DELETE_MODAL">
     <div class="flex flex-col space-y-3">
-      <div class="bg-red-color p-3 rounded-xl flex items-center justify-center self-start">
-        <i class="ri-delete-bin-line text-white"></i>
+      <div class="flex items-start justify-between">
+        <div class="bg-red-color p-3 rounded-xl flex items-center justify-center self-start">
+          <i class="ri-delete-bin-line text-white"></i>
+        </div>
+
+        <i @click="CLOSE_DELETE_MODAL" class="ri-close-line cursor-pointer"></i>
       </div>
 
       <div class="flex flex-col space-y-1">
-        <p class="text-lg leading-5 font-medium text-main-dark-color">{{ $t(`deleteText`) }}</p>
+        <p class="text-lg leading-5 font-medium text-main-dark-color">{{ $t('common.delete_confirm') }}</p>
         <p class="text-base text-main-dark-color line-clamp-5 break-all">{{ _deleteModal.title }}</p>
       </div>
 
       <div class="flex gap-3">
-        <button @click="_deleteModal.visible = false" class="rounded-xl p-4 w-full bg-light-background-color text-main-dark-color font-medium">{{ $t('cancel') }}</button>
-        <button @click="submit" :loading="_loading" class="rounded-xl p-4 w-full bg-red-color text-white font-medium">{{ $t('delete') }}</button>
+        <button @click="_deleteModal.visible = false" class="rounded-xl p-4 w-full bg-light-background-color text-main-dark-color font-medium">{{ $t('common.cancel') }}</button>
+        <button @click="submit" :loading="_loading" class="rounded-xl p-4 w-full bg-red-color text-white font-medium">{{ $t('common.delete') }}</button>
       </div>
     </div>
   </el-dialog>

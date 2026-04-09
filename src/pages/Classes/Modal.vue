@@ -140,7 +140,7 @@ const removeGroup = (index: number) => {
 };
 
 watch(() => _checked.value, () => {
-  if(_checked.value && _formData.value.groups.length === 0) _formData.value.groups = getClassGroups_DEFAULT();
+  if(_checked.value && _formData.value?.groups?.length === 0) _formData.value.groups = getClassGroups_DEFAULT();
 })
 
 async function submit() {
@@ -161,19 +161,19 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-dialog v-model="_visible" :title="_formData.id ? 'Sinfni tahrirlash' : 'Yangi sinf qo‘shish'" width="600px" @close="close">
+  <el-dialog v-model="_visible" :title="_formData.id ? $t('common.edit') + ' ' + $t('models.class').toLowerCase() : $t('common.add') + ' ' + $t('models.class').toLowerCase()" width="600px" @close="close">
     <el-form ref="_formRef" :model="_formData" :rules="rules" label-position="top">
       <div class="grid grid-cols-2 gap-x-4 mb-2">
-        <el-form-item label="Sinf nomi" prop="name">
+        <el-form-item :label="$t('models.class') + ' ' + $t('fields.name').toLowerCase()" prop="name">
           <el-input v-model="_formData.name" placeholder="Masalan: 5A" class="compact-input" />
         </el-form-item>
 
-        <el-form-item label="Qisqa nom" prop="shortName">
+        <el-form-item :label="$t('fields.short_name')" prop="shortName">
           <el-input v-model="_formData.shortName" placeholder="5A" class="compact-input" />
         </el-form-item>
 
-        <el-form-item label="Sinf rahbari" prop="teacherId">
-          <el-select v-model="_formData.teacherId" placeholder="O'qituvchini tanlang" class="compact-input w-full" filterable clearable>
+        <el-form-item :label="$t('models.class') + ' rahbari'" prop="teacherId">
+          <el-select v-model="_formData.teacherId" :placeholder="$t('models.teacher') + 'ni tanlang'" class="compact-input w-full" filterable clearable>
             <el-option v-for="t in _teachers" :key="t.id" :label="t.fullName" :value="t.id">
               <div class="flex items-center gap-2">
                 <div class="w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center text-xs font-bold border border-blue-100">{{ t.fullName?.charAt(0) }}</div>
@@ -183,12 +183,12 @@ defineExpose({ open });
           </el-select>
         </el-form-item>
   
-        <el-form-item label="Biriktirilgan xonalar" prop="rooms">
-          <el-select v-model="_formData.rooms" multiple collapse-tags placeholder="Xonalarni tanlang" class="compact-input w-full" filterable>
+        <el-form-item :label="'Biriktirilgan ' + $t('models.room').toLowerCase() + 'lar'" prop="rooms">
+          <el-select v-model="_formData.rooms" multiple collapse-tags :placeholder="$t('models.room') + 'larni tanlang'" class="compact-input w-full" filterable>
             <el-option v-for="r in _rooms" :key="r.id" :label="r.name" :value="r.id">
               <div class="flex justify-between items-center w-full">
                 <span>{{ r.name }}</span>
-                <span class="text-xs text-gray-400">{{ r.capacity ? r.capacity + ' o\'rin' : '' }}</span>
+                <span class="text-xs text-gray-400">{{ r.capacity ? r.capacity + ' ' + $t('fields.capacity').toLowerCase() : '' }}</span>
               </div>
             </el-option>
           </el-select>
@@ -197,7 +197,7 @@ defineExpose({ open });
 
       <div class="add_class flex flex-col gap-3 mb-5">
         <div class="flex items-start justify-between">
-          <el-checkbox v-model="_checked">Sinflarni guruhlarga bo'lish</el-checkbox>
+          <el-checkbox v-model="_checked">{{ $t('classes.divide_to_groups') }}</el-checkbox>
           <i v-if="_checked" @click="addGroup()" class="ri-add-box-line !leading-4 cursor-pointer text-gray-400"></i>
         </div>
 
@@ -213,16 +213,15 @@ defineExpose({ open });
         </el-collapse-transition>
       </div>
 
-
       <div class="availability-section border border-green-500 rounded-2xl p-4 mb-5 bg-green-50/30">
         <div class="flex items-center justify-between mb-4 px-1">
           <div class="flex items-center gap-2 text-gray-600">
             <i class="ri-calendar-check-line text-lg text-green-600"></i>
-            <span class="text-sm font-medium">Haftalik mavjudlik jadvali</span>
+            <span class="text-sm font-medium">{{ $t('classes.weekly_availability') }}</span>
           </div>
           <div class="flex gap-2">
-            <button type="button" @click="selectAll" class="px-3 py-1 text-[11px] font-bold text-green-600 border border-green-200 rounded-md bg-white hover:bg-green-50 transition-colors">Hammasini tanlash</button>
-            <button type="button" @click="clearAll" class="px-3 py-1 text-[11px] font-bold text-red-500 border border-red-100 rounded-md bg-white hover:bg-red-50 transition-colors">Tozalash</button>
+            <button type="button" @click="selectAll" class="px-3 py-1 text-[11px] font-bold text-green-600 border border-green-200 rounded-md bg-white hover:bg-green-50 transition-colors">{{ $t('classes.select_all') }}</button>
+            <button type="button" @click="clearAll" class="px-3 py-1 text-[11px] font-bold text-red-500 border border-red-100 rounded-md bg-white hover:bg-red-50 transition-colors">{{ $t('classes.clear_all') }}</button>
           </div>
         </div>
 
@@ -241,8 +240,8 @@ defineExpose({ open });
       </div>
 
       <div class="sticky bottom-0 flex justify-end gap-2 pt-2 mt-2 bg-white">
-        <el-button size="default" class="!rounded-lg !h-9 !px-6" @click="close">Bekor qilish</el-button>
-        <el-button type="primary" class="!rounded-lg !h-9 !px-6 !bg-blue-600 !border-blue-600" :loading="_loading" @click="submit">{{ _formData.id ? 'Saqlash' : 'Qo‘shish' }}</el-button>
+        <el-button size="default" class="!rounded-lg !h-9 !px-6" @click="close">{{ $t('common.cancel') }}</el-button>
+        <el-button type="primary" class="!rounded-lg !h-9 !px-6 !bg-blue-600 !border-blue-600" :loading="_loading" @click="submit">{{ _formData.id ? $t('common.save') : $t('common.add') }}</el-button>
       </div>
     </el-form>
   </el-dialog>

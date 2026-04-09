@@ -1,14 +1,15 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
+import Language from '@/components/Language/index.vue'
 
 const router = useRouter();
 
 const navLinks = [
-  { name: 'Xususiyatlar', href: '#features' },
-  { name: 'Maktablar uchun', href: '#audience' },
-  { name: 'Fikrlar', href: '#testimonials' },
-  { name: 'Narxlar', href: '#pricing' },
-  { name: 'Bog\'lanish', href: '#contact' },
+  { name: 'landing.header.features', href: '#features' },
+  { name: 'landing.header.for_schools', href: '#audience' },
+  { name: 'landing.header.testimonials', href: '#testimonials' },
+  { name: 'landing.header.pricing', href: '#pricing' },
+  { name: 'landing.header.contact', href: '#contact' },
 ];
 
 const goLogin = () => {
@@ -20,7 +21,6 @@ const scrollTop = () => {
     window.scrollTo(0,0);
 };
 </script>
-
 
 <template>
     <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
@@ -34,12 +34,15 @@ const scrollTop = () => {
         </div>
 
         <nav class="hidden md:flex items-center gap-8">
-          <a v-for="link in navLinks" :key="link.name" :href="link.href" class="text-[15px] font-medium text-gray-600 hover:text-blue-600 transition-colors">{{ link.name }}</a>
+          <a v-for="link in navLinks" :key="link.name" :href="link.href" class="text-[15px] font-medium text-gray-600 hover:text-blue-600 transition-colors">{{ $t(link.name) }}</a>
         </nav>
 
-        <div @click="goLogin" class="flex items-center gap-4">
-          <button class="text-[15px] font-semibold text-gray-700 hover:text-blue-600 transition-colors hidden sm:block">Kirish</button>
-          <button class="bg-blue-600 hover:bg-blue-700 text-white text-[15px] font-semibold px-5 py-2.5 rounded-xl transition-all active:scale-95 shadow-sm shadow-blue-600/20">Boshlash</button>
+        <div class="flex items-center gap-4">
+          <Language />
+          <div @click="goLogin" class="flex items-center gap-4">
+            <button class="text-[15px] font-semibold text-gray-700 hover:text-blue-600 transition-colors hidden sm:block">{{ $t('landing.header.login') }}</button>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white text-[15px] font-semibold px-5 py-2.5 rounded-xl transition-all active:scale-95 shadow-sm shadow-blue-600/20">{{ $t('landing.header.start') }}</button>
+          </div>
         </div>
       </div>
     </header>

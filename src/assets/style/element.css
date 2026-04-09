@@ -114,6 +114,7 @@
   max-height: calc(100vh - 150px);
 }
 
+
 .el-dialog__body::-webkit-scrollbar {
   width: 3px !important;
 }

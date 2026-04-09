@@ -1,9 +1,10 @@
 import axios from "axios";
-import { logout_HANDLER } from "./handler";
+import i18n from "@/i18n";
 import { ElNotification } from "element-plus";
 
 // let baseURL = "http://68.183.8.75:8080/api";
-let baseURL = "http://136.114.26.167:8080/api";
+let baseURL = "http://34.116.193.242:8080/api";
+// let baseURL = "http://136.114.26.167:8080/api";
 
 
 export const axiosInstance = axios.create({
@@ -21,28 +22,20 @@ axiosInstance.interceptors.request.use(
     for (const key in config.params) {
       if (Object.prototype.hasOwnProperty.call(config.params, key)) {
         const element = config.params[key];
-        if (!element && typeof element != "boolean") delete config.params[key];
+        if (!element && typeof element !== "boolean") delete config.params[key];
       }
     }
     
     const token = localStorage.getItem("token");
-    if (config.url.includes("NO_TOKEN")) config.headers.authorization = "";
-    else if (token) config.headers.authorization = `Bearer ${token}`;
+    if (config.url.includes("NO_TOKEN")) delete config.headers.Authorization;
+    else if (token) config.headers.Authorization = `Bearer ${token}`;
     config.url = config.url.replace("/NO_TOKEN", "");
 
     return config;
   },
 
   (error) => {
-    alert("Axios request error");
-    
-    ElNotification({
-      title: "",
-      type: "error",
-      message: error.errorDescription,
-    });
-
-    console.log("Error: " + error);
+    console.error("Request Interceptor Error:", error);
     return Promise.reject(error);
   }
 );
@@ -54,18 +47,19 @@ axiosInstance.interceptors.response.use(
   },
 
   (error) => {
-    console.log("Axios error");
-    console.log(error);
-    
-    if(!error.errorDescription) return;
-    // if(error.status === 401) logout_HANDLER(true)
+    const { t } = i18n.global;
+    const url = error.config?.url || "";
+    const errorMessage = error.response?.data?.errorDescription || "Xatolik yuz berdi";
+
+    if (url.includes("logout")) {
+      return Promise.reject(error);
+    }
 
     ElNotification({
-      title: "",
       type: "error",
-      message: error.errorDescription,
+      message: errorMessage,
+      title: t('common.error'),
     });
-
 
     return Promise.reject(error);
   }

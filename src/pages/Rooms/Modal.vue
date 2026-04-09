@@ -127,20 +127,20 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-dialog v-model="_visible" :title="_formData.id ? 'Xonani tahrirlash' : 'Yangi xona qo‘shish'"  width="680px"  @close="close">
+  <el-dialog v-model="_visible" :title="_formData.id ? $t('rooms.modal_edit') : $t('rooms.modal_add')"  width="680px"  @close="close">
     <el-form ref="_formRef" :model="_formData" :rules="rules" label-position="top">
       <div class="grid md:grid-cols-3 gap-x-4 mb-2">
-        <el-form-item label="Xona nomi" prop="name">
-          <el-input v-model="_formData.name" placeholder="Masalan: 101-xona" class="compact-input" />
+        <el-form-item :label="$t('rooms.label_name')" prop="name">
+          <el-input v-model="_formData.name" :placeholder="$t('rooms.placeholder_name')" class="compact-input" />
         </el-form-item>
 
-        <el-form-item label="Qisqa nom (Raqami)" prop="shortName">
-          <el-input v-model="_formData.shortName" placeholder="101" class="compact-input" />
+        <el-form-item :label="$t('rooms.label_short_name')" prop="shortName">
+          <el-input v-model="_formData.shortName" :placeholder="$t('rooms.placeholder_short_name')" class="compact-input" />
         </el-form-item>
 
-        <el-form-item label="Xona turi" prop="type">
-            <el-select v-model="_formData.type" placeholder="Turini tanlang" class="compact-input w-full">
-                <el-option v-for="type in ROOM_TYPE_ENUM" :key="type" :label="ROOM_TYPE.get(type)" :value="type" />
+        <el-form-item :label="$t('rooms.label_type')" prop="type">
+            <el-select v-model="_formData.type" :placeholder="$t('rooms.placeholder_type')" class="compact-input w-full">
+                <el-option v-for="type in ROOM_TYPE_ENUM" :key="type" :label="type === 'SPECIAL' ? $t('rooms.type_special') : $t('rooms.type_general')" :value="type" />
             </el-select>
         </el-form-item>
       </div>
@@ -149,12 +149,12 @@ defineExpose({ open });
         <div class="flex items-center justify-between mb-4 px-1">
           <div class="flex items-center gap-2 text-gray-600">
             <i class="ri-calendar-check-line text-lg text-green-600"></i>
-            <span class="text-sm font-medium">Xona bandligi jadvali</span>
+            <span class="text-sm font-medium">{{ $t('rooms.occupancy_schedule') }}</span>
           </div>
 
           <div class="flex gap-2">
-            <button type="button" @click="selectAll" class="px-3 py-1 text-[11px] font-bold text-green-600 border border-green-200 rounded-md bg-white hover:bg-green-50 transition-colors">Hammasini tanlash</button>
-            <button type="button" @click="clearAll" class="px-3 py-1 text-[11px] font-bold text-red-500 border border-red-100 rounded-md bg-white hover:bg-red-50 transition-colors">Tozalash</button>
+            <button type="button" @click="selectAll" class="px-3 py-1 text-[11px] font-bold text-green-600 border border-green-200 rounded-md bg-white hover:bg-green-50 transition-colors">{{ $t('classes.select_all') }}</button>
+            <button type="button" @click="clearAll" class="px-3 py-1 text-[11px] font-bold text-red-500 border border-red-100 rounded-md bg-white hover:bg-red-50 transition-colors">{{ $t('classes.clear_all') }}</button>
           </div>
         </div>
 
@@ -173,8 +173,8 @@ defineExpose({ open });
       </div>
       
       <div class="sticky bottom-0 flex justify-end gap-2 pt-2 mt-2 bg-white">
-        <el-button size="default" class="!rounded-lg !h-9 !px-6" @click="close">Bekor qilish</el-button>
-        <el-button type="primary" class="!rounded-lg !h-9 !px-6 !bg-blue-600 !border-blue-600" :loading="_loading" @click="submit">{{ _formData.id ? 'Saqlash' : 'Qo\'shish' }}</el-button>
+        <el-button size="default" class="!rounded-lg !h-9 !px-6" @click="close">{{ $t('common.cancel') }}</el-button>
+        <el-button type="primary" class="!rounded-lg !h-9 !px-6 !bg-blue-600 !border-blue-600" :loading="_loading" @click="submit">{{ _formData.id ? $t('common.save') : $t('common.add') }}</el-button>
       </div>
 
     </el-form>

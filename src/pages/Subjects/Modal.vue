@@ -162,26 +162,26 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-dialog v-model="_visible" :title="_formData.id ? 'Fanni tahrirlash' : 'Yangi fan'" width="600px" @close="close">
+  <el-dialog v-model="_visible" :title="_formData.id ? $t('subjects.modal_edit') : $t('subjects.modal_add')" width="600px" @close="close">
     <el-form ref="_formRef" :model="_formData" :rules="rules" label-position="top">
 
       <div class="grid grid-cols-5 gap-x-4">
         
-        <el-form-item label="Fan nomi" prop="name" class="col-span-3">
-          <el-autocomplete v-model="_formData.name" :fetch-suggestions="querySearch" placeholder="Masalan: Matematika" class="compact-input w-full" clearable @select="handleSelect">
+        <el-form-item :label="$t('subjects.label_name')" prop="name" class="col-span-3">
+          <el-autocomplete v-model="_formData.name" :fetch-suggestions="querySearch" :placeholder="$t('subjects.placeholder_name')" class="compact-input w-full" clearable @select="handleSelect">
             <template #default="{ item }">
               <div class="flex items-center justify-between"><span>{{ item.value }}</span><span class="text-lg">{{ item.emoji }}</span></div>
             </template>
           </el-autocomplete>
         </el-form-item>
 
-        <el-form-item label="Qisqa nom" prop="shortName" class="col-span-2">
-          <el-input v-model="_formData.shortName" placeholder="MATEM" class="compact-input" />
+        <el-form-item :label="$t('fields.short_name')" prop="shortName" class="col-span-2">
+          <el-input v-model="_formData.shortName" :placeholder="$t('fields.short_name')" class="compact-input" />
         </el-form-item>
       </div>
 
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <el-form-item label="Emoji" prop="emoji">
+        <el-form-item :label="$t('subjects.label_emoji')" prop="emoji">
           <el-popover ref="_popoverRef" placement="bottom" :width="320" trigger="click">
             <template #reference>
               <el-input v-model="_formData.emoji" placeholder="😀" class="compact-input text-center font-emoji" />
@@ -196,14 +196,14 @@ defineExpose({ open });
           </el-popover>
         </el-form-item>
 
-        <el-form-item label="Rang" prop="color">
+        <el-form-item :label="$t('subjects.label_color')" prop="color">
           <el-color-picker v-model="_formData.color" show-alpha :predefine="predefineColors" size="large"
             class="!w-full" />
         </el-form-item>
 
-        <el-form-item label="Qiyinlik (1-10)" prop="weight" class="flex-auto">
+        <el-form-item :label="$t('subjects.label_difficulty')" prop="weight" class="flex-auto">
           <el-input-number v-model="_formData.weight" :min="1" :max="10" controls-position="right"
-            class="!w-full compact-input" placeholder="1" />
+            class="!w-full compact-input" :placeholder="$t('subjects.difficulty_placeholder')" />
         </el-form-item>
       </div>
 
@@ -211,14 +211,17 @@ defineExpose({ open });
         <div class="flex items-center justify-between mb-4 px-1">
           <div class="flex items-center gap-2 text-gray-600">
             <i class="ri-calendar-check-line text-lg text-green-600"></i>
-            <span class="text-sm font-medium">Fan o'tiladigan vaqtlar</span>
+            <span class="text-sm font-medium">{{ $t('subjects.allocated_times') }}</span>
           </div>
           <div class="flex gap-2">
             <button type="button" @click="selectAll"
-              class="px-3 py-1 text-[11px] font-bold text-green-600 border border-green-200 rounded-md bg-white hover:bg-green-50 transition-colors">Hammasini
-              tanlash</button>
+              class="px-3 py-1 text-[11px] font-bold text-green-600 border border-green-200 rounded-md bg-white hover:bg-green-50 transition-colors">
+              {{ $t('classes.select_all') }}
+            </button>
             <button type="button" @click="clearAll"
-              class="px-3 py-1 text-[11px] font-bold text-red-500 border border-red-100 rounded-md bg-white hover:bg-red-50 transition-colors">Tozalash</button>
+              class="px-3 py-1 text-[11px] font-bold text-red-500 border border-red-100 rounded-md bg-white hover:bg-red-50 transition-colors">
+              {{ $t('classes.clear_all') }}
+            </button>
           </div>
         </div>
 
@@ -246,8 +249,10 @@ defineExpose({ open });
       </div>
 
       <div class="sticky bottom-0 flex justify-end gap-2 pt-2 mt-2 bg-white">
-        <el-button size="default" class="!rounded-lg !h-9 !px-6" @click="close">Bekor qilish</el-button>
-        <el-button type="primary" class="!rounded-lg !h-9 !px-6 !bg-blue-600 !border-blue-600" :loading="_loading" @click="submit"> {{ _formData.id ? 'Saqlash' : 'Qo\'shish' }}</el-button>
+        <el-button size="default" class="!rounded-lg !h-9 !px-6" @click="close">{{ $t('common.cancel') }}</el-button>
+        <el-button type="primary" class="!rounded-lg !h-9 !px-6 !bg-blue-600 !border-blue-600" :loading="_loading" @click="submit"> 
+          {{ _formData.id ? $t('common.save') : $t('common.add') }}
+        </el-button>
       </div>
 
     </el-form>

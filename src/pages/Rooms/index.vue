@@ -74,7 +74,7 @@ async function handlePageChange(page: number) {
 
 function deleteItem(item: RoomModel) {
     OPEN_DELETE_MODAL({
-        title: `${item.name} - xonasi`,
+        title: `${item.name}`,
         callback: loadItems,
         url: `rooms/v1/${item.id}`,
     })
@@ -87,7 +87,7 @@ loadItems();
     <div class="flex flex-col gap-6">
         <div class="flex items-center justify-between gap-4">
             <div class="w-full max-w-sm relative custom-search">
-                <el-input v-model="_params.search" placeholder="Qidirish..." @input="onSearch" clearable style="width: 200px;">
+                <el-input v-model="_params.search" :placeholder="$t('common.search_placeholder')" @input="onSearch" clearable style="width: 200px;">
                     <template #prefix>
                         <i class="ri-search-line text-gray-400"></i>
                     </template>
@@ -96,7 +96,7 @@ loadItems();
 
             <el-button @click="openModal(null)" type="primary" plain>
                 <i class="ri-add-line text-lg"></i> 
-                <p class="hidden md:block ml-1">Xona qo'shish</p>
+                <p class="hidden md:block ml-1">{{ $t('rooms.add_btn') }}</p>
             </el-button>
         </div>
 
@@ -110,11 +110,11 @@ loadItems();
                                 <div class="bg-white border rounded-xl p-4 pb-2 shadow-sm">
                                     <div class="flex items-center justify-between mb-4">
                                         <h4 class="text-sm font-bold text-green-700 flex items-center gap-2">
-                                            <i class="ri-calendar-check-line"></i> Xona bandligi jadvali
+                                            <i class="ri-calendar-check-line"></i> {{ $t('rooms.occupancy_schedule') }}
                                         </h4>
                                         <div class="flex items-center gap-2 cursor-pointer">
                                             <i class="ri-share-line !text-base text-blue-500"></i>
-                                            <p class="text-blue-500 text-[14px]">Boshqalarga qo'llash</p>
+                                            <p class="text-blue-500 text-[14px]">{{ $t('classes.apply_to_others') }}</p>
                                         </div>
                                     </div>
 
@@ -140,7 +140,7 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Name" min-width="200">
+                <el-table-column :label="$t('fields.name')" min-width="200">
                     <template #default="{ row }">
                         <div class="flex items-center gap-3">
                             <i class="ri-building-line text-2xl text-gray-400"></i>
@@ -149,7 +149,7 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Short Name" min-width="150">
+                <el-table-column :label="$t('fields.short_name')" min-width="150">
                     <template #default="{ row }">
                         <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-lg text-sm border border-gray-200">
                             {{ row.shortName }}
@@ -157,24 +157,26 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Xona turi" min-width="180">
+                <el-table-column :label="$t('rooms.col_type')" min-width="180">
                     <template #default="{ row }">
-                    <span  v-if="row.type" class="px-3 py-1 rounded-lg text-sm font-medium border" :class="row.type === 'SPECIAL' ? 'bg-amber-100 text-amber-700 border-amber-200' : 'bg-purple-100 text-purple-700 border-purple-200'">{{ ROOM_TYPE.get(row.type) }}</span>
-                        <span v-else class="text-gray-400 italic">Tayinlanmagan</span>
+                        <span  v-if="row.type" class="px-3 py-1 rounded-lg text-sm font-medium border" :class="row.type === 'SPECIAL' ? 'bg-amber-100 text-amber-700 border-amber-200' : 'bg-purple-100 text-purple-700 border-purple-200'">
+                            {{ row.type === 'SPECIAL' ? $t('rooms.type_special') : $t('rooms.type_general') }}
+                        </span>
+                        <span v-else class="text-gray-400 italic">{{ $t('fields.unassigned') }}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Mavjudlik" min-width="150">
+                <el-table-column :label="$t('rooms.col_availability')" min-width="150">
                     <template #default="{ row }">
                         <div @click="toggleRow(row)" class="flex items-center gap-2 text-green-600 font-medium cursor-pointer hover:text-green-700 transition-colors select-none group">
                             <i class="ri-calendar-check-line text-lg"></i>
-                            <span>{{ calculateTotalPeriods(row.availabilities) }} periods</span>
+                            <span>{{ calculateTotalPeriods(row.availabilities) }} {{ $t('lessons.stats_lessons') }}</span>
                             <i class="ri-arrow-down-s-line text-gray-400 group-hover:text-green-600 transition-transform duration-300" :class="{'rotate-180': expandedRowKeys.includes(row.id)}"></i>
                         </div>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Harakatlar" width="120">
+                <el-table-column :label="$t('common.actions')" width="120">
                     <template #default="{ row }">
                         <div class="flex justify-end gap-3 px-2">
                             <i @click.stop="openModal(row)" class="ri-pencil-fill cursor-pointer text-blue-500 text-lg transition-colors"></i>
@@ -187,7 +189,7 @@ loadItems();
                 <template #empty>
                     <div class="py-16 flex flex-col items-center gap-2">
                         <i class="ri-home-office-line text-4xl text-gray-200"></i>
-                        <p class="text-gray-400 font-medium italic">Xonalar topilmadi</p>
+                        <p class="text-gray-400 font-medium italic">{{ $t('rooms.not_found') }}</p>
                     </div>
                 </template>
             </el-table>

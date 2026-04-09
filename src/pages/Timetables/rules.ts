@@ -7,7 +7,7 @@ export const useRules = () => {
   const { t } = useI18n();
 
   const rules = ref<FormRules>({
-    name: [{ required: true, message: t("fieldIsRequired"), trigger: "blur" }],
+    name: [{ required: true, message: t("common.required_field"), trigger: "blur" }],
   });
 
   return rules;

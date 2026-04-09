@@ -88,13 +88,13 @@ loadItems();
     <div class="flex flex-col gap-6">
         <div class="flex items-center justify-between gap-4">
             <div class="w-full max-w-sm relative custom-search">
-                <el-input v-model="_params.search" placeholder="Search..." @input="onSearch" clearable style="width: 200px;">
+                <el-input v-model="_params.search" :placeholder="$t('common.search_placeholder')" @input="onSearch" clearable style="width: 200px;">
                     <template #prefix><i class="ri-search-line text-gray-400"></i></template>
                 </el-input>
             </div>
             <el-button @click="openModal(null)" type="primary" plain>
                 <i class="ri-add-line text-lg"></i>
-                <p class="hidden md:block ml-1">Sinf qo'shish</p>
+                <p class="hidden md:block ml-1">{{ $t('common.add') }} {{ $t('models.class').toLowerCase() }}</p>
             </el-button>
         </div>
 
@@ -107,12 +107,12 @@ loadItems();
                                 <div class="bg-white border rounded-xl p-4 pb-2 shadow-sm">
                                     <div class="flex items-center justify-between mb-4">
                                         <h4 class="text-sm font-bold text-green-700 flex items-center gap-2">
-                                            <i class="ri-calendar-check-line"></i> Haftalik bandlik jadvali
+                                            <i class="ri-calendar-check-line"></i> {{ $t('classes.weekly_occupancy') }}
                                         </h4>
 
                                         <div class="flex items-center gap-2 cursor-pointer">
                                             <i class="ri-share-line !text-base text-blue-500"></i>
-                                            <p class="text-blue-500 text-[16px]">Boshqalarga qo'llash</p>
+                                            <p class="text-blue-500 text-[16px]">{{ $t('classes.apply_to_others') }}</p>
                                         </div>
                                     </div>
 
@@ -138,35 +138,35 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Nomi" min-width="120">
+                <el-table-column :label="$t('fields.name')" min-width="120">
                     <template #default="{ row }">
                         <span class="font-bold text-gray-900">{{ row.name }}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Qisqa nom" min-width="120">
+                <el-table-column :label="$t('fields.short_name')" min-width="120">
                     <template #default="{ row }">
                         <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold">{{ row.shortName }}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="O'qituvchi" min-width="150">
+                <el-table-column :label="$t('models.teacher')" min-width="150">
                     <template #default="{ row }">
                         <div v-if="row.teacher" class="flex items-center gap-2">
                             <span class="font-medium text-gray-700">{{ row.teacher.fullName || row.teacher.name }}</span>
                         </div>
-                        <span v-else class="text-gray-400 italic">Tayinlanmagan</span>
+                        <span v-else class="text-gray-400 italic">{{ $t('fields.unassigned') }}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Xonalar" min-width="150">
+                <el-table-column :label="$t('models.room')" min-width="150">
                     <template #default="{ row }">
                         <span v-if="row.rooms && row.rooms.length > 0" class="text-gray-700 font-medium">{{ row.rooms.length }} ta</span>
-                        <span v-else class="text-gray-400 italic">Tayinlanmagan</span>
+                        <span v-else class="text-gray-400 italic">{{ $t('fields.unassigned') }}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Mavjudlik" min-width="180">
+                <el-table-column :label="$t('common.status')" min-width="180">
                     <template #default="{ row }">
                         <div @click="toggleRow(row)" class="flex items-center gap-2 text-green-600 font-medium cursor-pointer hover:text-green-700 transition-colors select-none group">
                             <i class="ri-calendar-check-line text-lg"></i>
@@ -176,19 +176,18 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Yangilangan sana" min-width="200">
+                <el-table-column :label="$t('fields.updated_at')" min-width="200">
                     <template #default="{ row }">
                         <span class="text-gray-500 text-sm">{{ formatDate_UTIL(row.updatedDate || row.createdDate) }}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="Harakatlar" width="120">
+                <el-table-column :label="$t('common.actions')" width="120">
                     <template #default="{ row }">
                         <div class="flex items-center gap-3">
                             <i @click.stop="openModal(row)" class="ri-pencil-fill cursor-pointer text-blue-500 text-lg transition-colors"></i>
                             <img @click.stop="copyItem(row)" class="h-5 cursor-pointer" :src="getIconUrl_UTIL('copy.png')" alt="">
                             <img @click.stop="deleteItem(row)" class="h-5 cursor-pointer" :src="getIconUrl_UTIL('delete.png')" alt="">
-
                         </div>
                     </template>
                 </el-table-column>

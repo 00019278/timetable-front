@@ -11,7 +11,7 @@ export async function logout_API(): Promise<[null, string] | [BaseError, null]> 
 }
 
 export async function logout_HANDLER(api = true) {
-  if (api) await logout_API();
+  // if (api) await logout_API();
   
   const _language = localStorage.getItem("_language");
   

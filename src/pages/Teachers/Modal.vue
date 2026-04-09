@@ -140,20 +140,20 @@ defineExpose({ open });
 </script>
 
 <template>
-  <el-dialog v-model="_visible" :title="_formData.id ? 'O\'qituvchini tahrirlash' : 'Yangi o\'qituvchi qo\'shish'" width="600px" @close="close">
+  <el-dialog v-model="_visible" :title="_formData.id ? $t('teachers.modal_edit') : $t('teachers.modal_add')" width="600px" @close="close">
     
     <el-form ref="_formRef" :model="_formData" :rules="rules" label-position="top">
       <div class="grid md:grid-cols-3 gap-x-4 mb-2">
-        <el-form-item label="F.I.SH" prop="fullName">
-          <el-input v-model="_formData.fullName" placeholder="Ism Familiya" class="compact-input" />
+        <el-form-item :label="$t('teachers.label_fullname')" prop="fullName">
+          <el-input v-model="_formData.fullName" :placeholder="$t('teachers.placeholder_fullname')" class="compact-input" />
         </el-form-item>
 
-        <el-form-item label="Qisqa ism" prop="shortName">
-          <el-input v-model="_formData.shortName" placeholder="I. Familiya" class="compact-input" />
+        <el-form-item :label="$t('teachers.label_shortname')" prop="shortName">
+          <el-input v-model="_formData.shortName" :placeholder="$t('teachers.placeholder_shortname')" class="compact-input" />
         </el-form-item>
 
-        <el-form-item label="Fanlar" prop="subjects">
-            <el-select v-model="_formData.subjects" multiple collapse-tags placeholder="Fanlarni tanlang" class="compact-input w-full" filterable>
+        <el-form-item :label="$t('sidebar.subjects')" prop="subjects">
+            <el-select v-model="_formData.subjects" multiple collapse-tags :placeholder="$t('teachers.placeholder_subjects')" class="compact-input w-full" filterable>
                 <el-option v-for="s in _subjects" :key="s.id" :label="s.name" :value="s.id">
                     <div class="flex items-center gap-2">
                         <span>{{ s.emoji || '📖' }}</span>
@@ -168,11 +168,11 @@ defineExpose({ open });
         <div class="flex items-center justify-between mb-4 px-1">
           <div class="flex items-center gap-2 text-gray-600">
             <i class="ri-time-line text-lg text-green-600"></i>
-            <span class="text-sm font-medium">Haftalik ish vaqti</span>
+            <span class="text-sm font-medium">{{ $t('teachers.working_hours') }}</span>
           </div>
           <div class="flex gap-2">
-            <button type="button" @click="selectAll" class="px-3 py-1 text-[11px] font-bold text-green-600 border border-green-200 rounded-md bg-white hover:bg-green-50 transition-colors">Hammasini tanlash</button>
-            <button type="button" @click="clearAll" class="px-3 py-1 text-[11px] font-bold text-red-500 border border-red-100 rounded-md bg-white hover:bg-red-50 transition-colors">Tozalash</button>
+            <button type="button" @click="selectAll" class="px-3 py-1 text-[11px] font-bold text-green-600 border border-green-200 rounded-md bg-white hover:bg-green-50 transition-colors">{{ $t('classes.select_all') }}</button>
+            <button type="button" @click="clearAll" class="px-3 py-1 text-[11px] font-bold text-red-500 border border-red-100 rounded-md bg-white hover:bg-red-50 transition-colors">{{ $t('classes.clear_all') }}</button>
           </div>
         </div>
 
@@ -191,8 +191,8 @@ defineExpose({ open });
       </div>
 
       <div class="sticky bottom-0 flex justify-end gap-2 pt-2 mt-2 bg-white">
-        <el-button size="default" class="!rounded-lg !h-9 !px-6" @click="close">Bekor qilish</el-button>
-        <el-button type="primary" class="!rounded-lg !h-9 !px-6 !bg-blue-600 !border-blue-600" :loading="_loading" @click="submit">{{ _formData.id ? 'Saqlash' : 'Qo‘shish' }}</el-button>
+        <el-button size="default" class="!rounded-lg !h-9 !px-6" @click="close">{{ $t('common.cancel') }}</el-button>
+        <el-button type="primary" class="!rounded-lg !h-9 !px-6 !bg-blue-600 !border-blue-600" :loading="_loading" @click="submit">{{ _formData.id ? $t('common.save') : $t('common.add') }}</el-button>
       </div>
 
     </el-form>

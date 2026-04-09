@@ -3,26 +3,26 @@ const features = [
   {
     icon: 'ri-graduation-cap-line',
     iconColor: 'text-blue-600',
-    title: 'Aqlli sinf boshqaruvi',
-    desc: 'Sinflarni qo\'shing, tahrir qiling va kuzatib boring. Talabalar, fanlar va jadval bir joyda.'
+    title: 'landing.features.card1_title',
+    desc: 'landing.features.card1_desc'
   },
   {
     icon: 'ri-calendar-check-line',
     iconColor: 'text-emerald-500',
-    title: 'Avtomatik rejalashtirish',
-    desc: 'Tizim o\'qituvchi va xona mavjudligiga qarab eng yaxshi jadvalni taklif qiladi va konfliktlarni bartaraf etadi.'
+    title: 'landing.features.card2_title',
+    desc: 'landing.features.card2_desc'
   },
   {
     icon: 'ri-time-line',
     iconColor: 'text-purple-500',
-    title: 'Xona va o\'qituvchi mavjudligi',
-    desc: 'Vizual mavjudlik taqvimlari bilan konfliktlardan qoching. Kim va qachon bo\'sh ekanligini ko\'ring.'
+    title: 'landing.features.card3_title',
+    desc: 'landing.features.card3_desc'
   },
   {
     icon: 'ri-notification-3-line',
     iconColor: 'text-orange-500',
-    title: 'Real vaqtda bildirishnomalar',
-    desc: 'Dars o\'zgartirilganida, ko\'chirilganda yoki bekor qilinganda darhol xabar oling.'
+    title: 'landing.features.card4_title',
+    desc: 'landing.features.card4_desc'
   }
 ];
 </script>
@@ -33,11 +33,11 @@ const features = [
 
       <div class="text-center max-w-3xl mx-auto mb-16">
         <h2 data-aos="fade-up" data-aos-once="false" class="text-3xl font-bold text-gray-900 mb-4">
-          Everything You Need for Perfect Scheduling
+          {{ $t('landing.features.title') }}
         </h2>
 
         <p data-aos="fade-up" data-aos-delay="100" data-aos-once="false" class="text-gray-500 text-lg">
-          Powerful features designed to make school timetable management effortless and efficient.
+          {{ $t('landing.features.subtitle') }}
         </p>
       </div>
 
@@ -55,8 +55,8 @@ const features = [
             <i :class="[feat.icon, feat.iconColor]" class="text-2xl"></i>
           </div>
 
-          <h3 class="text-lg font-bold text-gray-900 mb-3">{{ feat.title }}</h3>
-          <p class="text-gray-500 text-[15px] leading-relaxed">{{ feat.desc }}</p>
+          <h3 class="text-lg font-bold text-gray-900 mb-3">{{ $t(feat.title) }}</h3>
+          <p class="text-gray-500 text-[15px] leading-relaxed">{{ $t(feat.desc) }}</p>
         </div>
 
       </div>
