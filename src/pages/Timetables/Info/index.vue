@@ -59,7 +59,7 @@ const scheduleMap = computed(() => {
     _items.value.classes?.forEach(cls => {
         map[cls.id] = {};
         DAYS.forEach(day => {
-            map[cls.id][day.key] = {};
+            map[cls.id]![day.key] = {}; 
         });
     });
 
@@ -69,15 +69,14 @@ const scheduleMap = computed(() => {
         const hour = data.hour;
 
         if (!map[cId]) map[cId] = {};
-        if (!map[cId][day]) map[cId][day] = {};
+        if (!map[cId]![day]) map[cId]![day] = {};
 
-        const slots = (data.slotDetails || []).map(slot => {
+        const slots = (data.slotDetails || [])?.map((slot: any) => {
             const subject = _items.value.subjects?.find(s => s.id === slot.subjectId);
             const teacher = _items.value.teachers?.find(t => t.id === slot.teacherId);
             const room = _items.value.rooms?.find(r => r.id === slot.roomId);
             const group = slot.groupId ? _items.value.groups?.find(g => g.id === slot.groupId) : null;
 
-            // Xato backend ID lariga qarshi Fallback (Unknown Subject o'rniga ID ni yoki ismni ko'rsatish)
             const subjectDisplay = subject?.name || subject?.shortName || `Fan belgilanmagan`;
             const teacherDisplay = teacher?.shortName || teacher?.fullName || 'Ustoz belgilanmagan';
             const roomDisplay = room?.name || 'Xona yo\'q';
@@ -91,7 +90,7 @@ const scheduleMap = computed(() => {
             };
         });
 
-        map[cId][day][hour] = slots;
+        map[cId]![day]![hour] = slots; 
     });
 
     return map;
@@ -143,9 +142,9 @@ onMounted(() => {
 
                                 <td v-for="day in DAYS" :key="day.key" class="border-r border-gray-200 p-1.5 align-top last:border-r-0">
                                     
-                                    <div v-if="scheduleMap[cls.id] && scheduleMap[cls.id][day.key] && scheduleMap[cls.id][day.key][period]" class="flex flex-col gap-1.5 h-full min-h-[80px]">
+                                    <div v-if="scheduleMap[cls.id]?.[day.key]?.[period]" class="flex flex-col gap-1.5 h-full min-h-[80px]">
                                         
-                                        <div v-for="slot in scheduleMap[cls.id][day.key][period]" :key="slot.id" 
+                                        <div v-for="slot in scheduleMap[cls.id]?.[day.key]?.[period]" :key="slot.id" 
                                              class="flex flex-col justify-center bg-white border border-gray-200 rounded-lg p-2 min-h-[80px] text-center shadow-sm">
                                             
                                             <span v-if="slot.groupName" class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded self-center mb-1">

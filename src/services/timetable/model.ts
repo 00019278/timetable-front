@@ -23,5 +23,5 @@ export interface TimetableAllModel {
     rooms: RoomModel[];
     subjects: SubjectModel[];
     teachers: TeacherModel[];
-    timetableData: TimetableModel[];
+    timetableData: TimetableModel[] | any[];
 }

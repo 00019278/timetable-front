@@ -1,1 +1,0 @@
-import{c as r,o as s}from"./index-MJc9hj7c.js";const a=(e,t)=>{const c=e.__vccOpts||e;for(const[o,n]of t)c[o]=n;return c},_={};function f(e,t){return s(),r("div",null," home page ")}const p=a(_,[["render",f]]);export{p as default};

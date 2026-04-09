@@ -4,5 +4,5 @@ export interface TemplateModel {
     id: number | null;
     class: string;
     subject: string;
-    availability: AvailabilityModel[];
+    availability: AvailabilityModel[] | any[];
 }

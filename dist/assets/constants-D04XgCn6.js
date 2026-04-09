@@ -1,0 +1,1 @@
+const e=[{key:"MONDAY",label:"Dushanba"},{key:"TUESDAY",label:"Seshanba"},{key:"WEDNESDAY",label:"Chorshanba"},{key:"THURSDAY",label:"Payshanba"},{key:"FRIDAY",label:"Juma"},{key:"SATURDAY",label:"Shanba"},{key:"SUNDAY",label:"Yakshanba"}];e.map(a=>a.key);export{e as S};
