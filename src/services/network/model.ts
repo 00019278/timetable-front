@@ -1,3 +1,8 @@
+export interface BaseModel<T> {
+  error: string;
+  errorDescription: string;
+  response: T[];
+}
 
 export interface BaseListModel<T> {
   totalElements: number;
@@ -9,6 +14,7 @@ export interface BaseListModel<T> {
   number: number;
   currentPage: number;
 }
+
 
 export interface BaseError {
   code: number;

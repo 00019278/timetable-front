@@ -1,17 +1,14 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import TheModal from './Modal.vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { OPEN_DELETE_MODAL } from '@/components/DeleteModal/store';
 import { getTimetables_API, type TimetableModel } from '@/services/timetable';
-import { getBaseList_DEFAULT, getBaseParams_DEFAULT, type BaseListModel, type BaseParamsModel } from '@/services/network';
 
 const _modalRef = ref()
-const route = useRoute();
 const router = useRouter();
 const _loading = ref(false);
-const _params = ref<BaseParamsModel>(getBaseParams_DEFAULT());
-const _items = ref<BaseListModel<TimetableModel>>(getBaseList_DEFAULT());
+const _items = ref<TimetableModel[]>([]);
 
 function openModal(item: TimetableModel | null) {
   _modalRef.value?.open(item)
@@ -19,28 +16,17 @@ function openModal(item: TimetableModel | null) {
 
 async function loadItems() {
     _loading.value = true;
-    const { page = 1, search = '' } = route.query;
-
-    _params.value.page = Number(page);
-    _params.value.search = String(search);
-
-    const [error, response] = await getTimetables_API(_params.value);
+    const [error, response] = await getTimetables_API();
     _loading.value = false;
 
     if (error) return;
     _items.value = response;
-    _items.value.number = page ? Number(page) : 1;
 }
 
-async function onSearch() {
-    await router.replace({ query: { ...route.query, search: _params.value.search, page: 1 } });
-    loadItems();
+function rowClick(item: TimetableModel) {
+    router.push(`/home/timetables/${item.id}`)
 }
 
-async function handlePageChange(page: number) {
-  await router.replace({ query: { page } });
-  loadItems();
-}
 
 function deleteItem(item: TimetableModel) {
     OPEN_DELETE_MODAL({
@@ -50,14 +36,7 @@ function deleteItem(item: TimetableModel) {
     })
 }
 
-// Yordamchi funksiyalar
-const formatDate = (dateString: string | Date | null) => {
-    if (!dateString) return '-';
-    const date = new Date(dateString);
-    return date.toLocaleDateString('uz-UZ', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-};
 
-// Foizni hisoblash
 const calculatePercentage = (scheduled: number | null, unscheduled: number | null) => {
     const s = scheduled || 0;
     const u = unscheduled || 0;
@@ -71,15 +50,8 @@ loadItems();
 
 <template>
     <div class="flex flex-col gap-6">
-        <div class="flex items-center justify-between gap-4">
-            <div class="w-full max-w-sm relative custom-search">
-                <el-input v-model="_params.search" :placeholder="$t('common.search_placeholder')" @input="onSearch" clearable style="width: 200px;">
-                    <template #prefix>
-                        <i class="ri-search-line text-gray-400"></i>
-                    </template>
-                </el-input>
-            </div>
-
+        <div class="flex items-center justify-end gap-4">
+            
             <el-button @click="openModal(null)" type="primary" plain>
                 <i class="ri-add-line text-lg"></i> 
                 <p class="hidden md:block ml-1">{{ $t('timetables.add_btn') }}</p>
@@ -88,7 +60,7 @@ loadItems();
 
         <div v-loading="_loading" class="border rounded-2xl overflow-hidden bg-white shadow-sm transition-all">
 
-            <el-table table-layout="auto" :data="_items.content" style="width: 100%" :header-cell-style="{ background: '#f9fafb', color: '#111827', fontWeight: '600', height: '56px' }">
+            <el-table table-layout="auto" :data="_items" style="width: 100%" :header-cell-style="{ background: '#f9fafb', color: '#111827', fontWeight: '600', height: '56px' }" @row-click="rowClick">
                 
                 <el-table-column :label="$t('timetables.label_name')" min-width="220">
                     <template #default="{ row }">
@@ -131,35 +103,12 @@ loadItems();
                     </template>
                 </el-table-column>
 
-                <el-table-column :label="$t('timetables.col_problems')" min-width="180">
-                    <template #default="{ row }">
-                        <div class="flex flex-col gap-1">
-                            <div v-if="row.teacherGaps > 0" class="inline-flex items-center gap-1.5 text-xs text-red-600 bg-red-50 px-2 py-0.5 rounded border border-red-100 w-fit">
-                                <i class="ri-user-unfollow-line"></i>
-                                <span>{{ row.teacherGaps }} {{ $t('timetables.teacher_gaps') }}</span>
-                            </div>
-                            <div v-if="row.classGaps > 0" class="inline-flex items-center gap-1.5 text-xs text-orange-600 bg-orange-50 px-2 py-0.5 rounded border border-orange-100 w-fit">
-                                <i class="ri-community-line"></i>
-                                <span>{{ row.classGaps }} {{ $t('timetables.class_gaps') }}</span>
-                            </div>
-                            <div v-if="!row.teacherGaps && !row.classGaps" class="text-xs text-green-600 flex items-center gap-1">
-                                <i class="ri-check-double-line"></i> {{ $t('timetables.everything_ok') }}
-                            </div>
-                        </div>
-                    </template>
-                </el-table-column>
-
-                <el-table-column :label="$t('fields.created_at')" min-width="150">
-                    <template #default="{ row }">
-                        <div class="flex flex-col">
-                            <span class="text-sm text-gray-600">{{ formatDate(row.createdDate) }}</span>
-                        </div>
-                    </template>
-                </el-table-column>
-
                 <el-table-column :label="$t('common.actions')" width="120">
                     <template #default="{ row }">
                         <div class="flex justify-end gap-2 px-2">
+                            <el-button size="small" link class="!p-2 hover:bg-indigo-50 rounded-lg group">
+                                <i class="ri-eye-line text-gray-400 group-hover:text-indigo-500 text-lg transition-colors"></i>
+                            </el-button>
                             <el-button @click="openModal(row)" size="small" link class="!p-2 hover:bg-indigo-50 rounded-lg group">
                                 <i class="ri-pencil-fill text-gray-400 group-hover:text-indigo-500 text-lg transition-colors"></i>
                             </el-button>
@@ -177,10 +126,6 @@ loadItems();
                     </div>
                 </template>
             </el-table>
-
-            <div v-if="_items.totalElements > 0" class="p-4 border-t flex justify-end bg-gray-50/50">
-                <el-pagination :current-page="_items.number" :page-size="_params.size" :total="_items.totalElements" layout="prev, pager, next" background @current-change="handlePageChange" />
-            </div>
         </div>
 
         <the-modal ref="_modalRef" @update="loadItems" />

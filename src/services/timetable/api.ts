@@ -1,15 +1,20 @@
-import type { TimetableModel } from './model'
-import { axiosInstance,type BaseError, type BaseListModel, type BaseParamsModel } from '@/services/network'
+import type { TimetableAllModel, TimetableModel } from './model'
+import { axiosInstance,type BaseError } from '@/services/network'
 
 
-export async function getTimetables_API(params: BaseParamsModel): Promise<[BaseError, null] | [null, BaseListModel<TimetableModel>]> {
+export async function getTimetables_API(): Promise<[BaseError, null] | [null, TimetableModel[]]> {
     try {
-        const response = <BaseListModel<TimetableModel>> await axiosInstance.get('/timetable/v1/timetable', {
-            params: {
-                ...params,
-                page: params.page ? params.page - 1 : 0,
-            }
-        })
+        const response = <TimetableModel[]> await axiosInstance.get('/timetable/v1/timetable')
+        
+        return [null, response]
+    } catch (error) {
+        return [error as BaseError, null]
+    }
+}
+
+export async function getTimetableById_API(id: string): Promise<[BaseError, null] | [null, TimetableAllModel]> {
+    try {
+        const response = <TimetableAllModel> await axiosInstance.get(`/timetable/v1/timetable/${id}`)
         
         return [null, response]
     } catch (error) {

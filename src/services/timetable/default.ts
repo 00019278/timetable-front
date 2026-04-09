@@ -1,4 +1,4 @@
-import type { TimetableModel } from "./model"
+import type { TimetableAllModel, TimetableModel } from "./model"
 
 export function getTimetable_DEFAULT(): TimetableModel {
   const object: TimetableModel = {
@@ -12,6 +12,19 @@ export function getTimetable_DEFAULT(): TimetableModel {
     classGaps: null,
     deleted: false,
     createdDate: '',
+  }
+
+  return object
+}
+
+export function getTimetableAll_DEFAULT(): TimetableAllModel {
+  const object: TimetableAllModel = {
+    classes: [],
+    groups: [],
+    rooms: [],
+    subjects: [],
+    teachers: [],
+    timetableData: [],
   }
 
   return object

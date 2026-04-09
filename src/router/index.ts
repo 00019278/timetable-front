@@ -94,6 +94,14 @@ const router = createRouter({
           },
           component: () => import("@/pages/Timetables/index.vue"),
         },
+        {
+          path: "timetables/:id",
+          name: "TimetablesInfo",
+          meta: {
+            title: "models.timetable",
+          },
+          component: () => import("@/pages/Timetables/Info/index.vue"),
+        },
 
         {
           path: "profile",

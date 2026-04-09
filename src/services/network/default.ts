@@ -1,5 +1,15 @@
-import { type BaseListModel, type BaseParamsModel } from ".";
+import { type BaseListModel, type BaseModel, type BaseParamsModel } from ".";
 
+
+export function getBase_DEFAULT(): BaseModel<any> {
+  const object: BaseModel<any> = {
+    error: '',
+    errorDescription: '',
+    response: [],
+  };
+
+  return object;
+}
 
 export function getBaseList_DEFAULT(): BaseListModel<any> {
   const object: BaseListModel<any> = {
