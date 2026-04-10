@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import axios from 'axios';
 import { ref } from 'vue';
 import { useRules } from "./rules";
 import { SCHOOL_WORKING_DAYS } from '@/utils';
@@ -99,6 +100,22 @@ async function open(item: any | null) {
         buildingId: parsedItem.building?.id || parsedItem.buildingId,
         availabilities: parsedItem.availabilities || []
     };
+  } else {
+    // === НАШ ФИКС ДЛЯ НОВОГО КАБИНЕТА ===
+    try {
+      // 1. Делаем запрос за зданиями (orgId пока хардкодим 1, так как база новая)
+      const response = await axios.get('/api/v1/organizations/1/buildings/all');
+      
+      // 2. Если здания есть, берем ID первого (того самого №7)
+      if (response.data && response.data.data && response.data.data.length > 0) {
+        _formData.value.buildingId = response.data.data[0].id;
+      } else {
+        console.warn("Здания не найдены в базе!");
+      }
+    } catch (e) {
+      console.error("Ошибка при получении зданий:", e);
+    }
+    // ====================================
   }
 }
 
